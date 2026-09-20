@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BaliRabies — Coming soon
 
-## Getting Started
+The `main` branch contains a single responsive coming-soon page, using the Bali photograph and Coastal Teal identity. The full website remains on `development`.
 
-First, run the development server:
+## Preview and build
 
-```bash
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build -- --webpack
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Webpack can be used when Turbopack subprocess permissions are restricted locally. The page uses system fonts, a locally hosted photograph, and Next Image; there are no forms, analytics, contact integrations, or external font requests.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Domain setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set `NEXT_PUBLIC_SITE_URL=https://your-actual-domain` in the deployment environment before building to enable the correct canonical URL and social URL. Connect the domain through your hosting provider. No domain or deployment has been configured by this change.
 
-## Learn More
+Photo: the same Unsplash Bali landscape used in `development`, image ID `photo-1537996194471-e657df975ab4`. Usage: https://unsplash.com/license.
 
-To learn more about Next.js, take a look at the following resources:
+## Reuse the holding page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The homepage and `/coming-soon` both render `app/components/coming-soon.tsx`. Keep that component and route when replacing the homepage with the full website. Render `<ComingSoon />` anywhere a holding page is needed, or customize its `title`, `imageSrc`, `imageAlt`, and `footer` props. The dedicated route is excluded from search indexing to avoid duplicate content.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The heading gently fades into place and receives a single warm light sweep. The effect finishes within 4.2 seconds, uses CSS only, and is disabled for reduced-motion preferences. The header and footer stay unchanged.

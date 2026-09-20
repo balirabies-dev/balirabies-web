@@ -1,26 +1,108 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #16343d;
+  --teal: #006b68;
+  --cream: #f7faf9;
+  --sand: #c7a879;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { background: var(--ink); color: var(--cream); font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+.coming-soon { min-height: 100svh; position: relative; isolation: isolate; display: flex; flex-direction: column; padding: 44px 64px 30px; overflow: hidden; }
+.bali-image { object-fit: cover; object-position: center 49%; z-index: -3; }
+.image-overlay { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, rgba(9,42,43,.91) 0%, rgba(9,42,43,.77) 45%, rgba(9,42,43,.28) 100%), linear-gradient(0deg, rgba(9,32,34,.55), transparent 35%); }
+.brand { display: flex; align-items: center; gap: 12px; width: fit-content; }
+.brand-mark { display: grid; place-items: center; width: 45px; height: 45px; border: 1px solid #b7d1c780; border-radius: 13px; }
+.brand-mark svg { width: 29px; height: 29px; }
+.brand-name { display: block; font-size: 29px; font-weight: 600; letter-spacing: -1.3px; line-height: 1; }
+.brand-name>span { font-weight: 400; }
+.brand-caption { display: block; font-size: 8px; letter-spacing: 2.1px; margin-top: 9px; }
+.message { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 100px 0 105px; max-width: 1000px; }
+.coming-label { color: var(--cream); font-size: 16px; letter-spacing: 2px; margin: 0 0 43px; }
+.eyebrow { font-size: 10px; letter-spacing: 2.5px; margin: 0 0 23px; color: #e0ebe5; }
+h1 { font-size: clamp(54px, 6.8vw, 100px); font-weight: 400; line-height: 1.08; letter-spacing: -.055em; margin: 0; }
+h1 em { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; color: #e5d4b9; }
+.description { font-size: 16px; line-height: 1.9; margin: 28px 0 0; color: #e0ebe5; }
+.sand-line { width: 48px; height: 2px; background: var(--sand); margin-top: 35px; }
+footer { display: flex; justify-content: space-between; gap: 20px; font-size: 10px; letter-spacing: 1.8px; color: #e0ebe5; }
+footer>span:last-child { letter-spacing: .4px; }
+@media (min-width: 1600px) { .coming-soon { padding-inline: max(64px, calc((100vw - 1440px) / 2)); } }
+@media (max-width: 700px) {
+  .coming-soon { padding: 28px 26px 25px; }
+  .bali-image { object-position: 57% center; }
+  .image-overlay { background: linear-gradient(90deg, #092a2be8, #092a2b80), linear-gradient(0deg, #09202299, transparent 55%); }
+  .brand-name { font-size: 25px; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-caption { font-size: 7px; }
+  .message { padding: 80px 0; }
+  .coming-label { margin-bottom: 35px; font-size: 14px; }
+  .eyebrow { font-size: 8px; letter-spacing: 1.6px; }
+  h1 { font-size: clamp(43px, 10.7vw, 72px); }
+  .description { font-size: 14px; max-width: 300px; }
+  .desktop-break { display: none; }
+  footer { font-size: 8px; letter-spacing: 1.3px; }
 }
+@media (max-width: 360px) { .coming-soon { padding-inline: 20px; } footer { flex-direction: column; gap: 10px; } }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* A finite entrance and light sweep; the headline then settles into place. */
+.coming-title {
+  animation: title-arrive 1.2s cubic-bezier(.2,.7,.2,1) both;
+}
+.coming-title > span {
+  display: inline-block;
+  color: var(--cream);
+}
+@supports (background-clip: text) {
+  .coming-title > span {
+    background-image: linear-gradient(110deg, #f7faf9 0%, #f7faf9 35%, #e5d4b9 46%, #ffffff 50%, #e5d4b9 54%, #f7faf9 65%, #f7faf9 100%);
+    background-size: 300% 100%;
+    background-position: 100% 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: title-shimmer 3s ease-in-out 1.2s both;
   }
 }
+@keyframes title-arrive {
+  from { opacity: 0; transform: translateY(18px); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes title-shimmer {
+  from { background-position: 100% 50%; }
+  to { background-position: 0% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coming-title, .coming-title > span { animation: none; }
+  .coming-title > span { background: none; color: var(--cream); }
+}
+@media (forced-colors: active) {
+  .coming-title > span { background: none; color: CanvasText; }
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animal-companions {
+  width: 170px;
+  align-self: flex-end;
+  margin: -72px 0 22px;
+  color: #e5d4b9;
+  opacity: .85;
+  pointer-events: none;
+}
+.animal-companions svg { display: block; width: 100%; height: auto; overflow: visible; }
+.dog-tail { transform-origin: 53px 102px; animation: dog-tail-wag 4.8s ease-in-out both; }
+.cat-tail { transform-origin: 181px 109px; animation: cat-tail-sway 4.8s ease-in-out both; }
+/* A brief greeting settles within five seconds, avoiding continuous distraction. */
+@keyframes dog-tail-wag {
+  0%, 20%, 60%, 100% { transform: rotate(0deg); }
+  28%, 44% { transform: rotate(12deg); }
+  36%, 52% { transform: rotate(-9deg); }
+}
+@keyframes cat-tail-sway {
+  0%, 35%, 100% { transform: rotate(0deg); }
+  52% { transform: rotate(-8deg); }
+  72% { transform: rotate(5deg); }
+}
+@media (max-width: 700px) {
+  .animal-companions { width: 130px; margin: -54px 0 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dog-tail, .cat-tail { animation: none; }
 }
