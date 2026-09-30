@@ -11,25 +11,25 @@ export const doctorHref = /^\d{8,15}$/.test(site.whatsapp)
 export const services = [
   {
     title: "Doctor consultation",
-    text: "A conversation about your situation, with clear next steps for your care.",
+    text: "Personal advice and clear next steps.",
     href: "/contact",
     icon: "chat",
   },
   {
     title: "Rabies vaccination",
-    text: "Explore vaccination before travel or after a possible exposure.",
+    text: "Before travel or after a possible exposure.",
     href: "/treatment/rabies-vaccination",
     icon: "syringe",
   },
   {
     title: "Immunoglobulin (RIG)",
-    text: "Understand this additional treatment and when a doctor may recommend it.",
+    text: "Additional treatment when clinically indicated.",
     href: "/treatment/immunoglobulin",
     icon: "shield",
   },
   {
     title: "Home & villa visits",
-    text: "Ask about care where you stay, subject to location and availability.",
+    text: "Care where you stay, subject to availability.",
     href: "/treatment/home-visits",
     icon: "home",
   },

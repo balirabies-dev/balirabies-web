@@ -87,20 +87,7 @@ export function Brand() {
     </Link>
   );
 }
-export function Urgent() {
-  return (
-    <aside className="urgent">
-      <span className="urgent-icon">!</span>
-      <div>
-        <strong>Animal bite or scratch?</strong>
-        <p>Wash the wound for 15 minutes. Seek medical care promptly.</p>
-      </div>
-      <Link href="/rabies-guide/after-exposure">
-        What to do now <Icon name="arrow" size={18} />
-      </Link>
-    </aside>
-  );
-}
+
 export function ServiceCards() {
   return (
     <div className="service-grid">

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Brand, Icon } from "./ui";
@@ -7,11 +7,21 @@ import { doctorHref } from "../lib/site";
 export default function Header() {
   const [open, setOpen] = useState(false);
   const path = usePathname();
+  const menuButton = useRef<HTMLButtonElement>(null);
   return (
-    <header className="site-header">
+    <header
+      className="site-header glass-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <div className="container header-inner">
         <Brand />
         <button
+          ref={menuButton}
           className="menu-toggle"
           aria-expanded={open}
           aria-controls="main-nav"
