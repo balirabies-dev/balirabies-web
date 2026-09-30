@@ -1,42 +1,24 @@
 import Image from "next/image";
-import AnimalCompanions from "./animal-companions";
+import { Button } from "./ui";
 
-type ComingSoonProps = {
-  title?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  footer?: string;
-};
-
-export default function ComingSoon({
-  title = "Coming soon",
-  imageSrc = "/images/bali.jpg",
-  imageAlt = "A Balinese temple reflected in a tranquil lake, surrounded by tropical greenery",
-  footer = "BALI, INDONESIA",
-}: ComingSoonProps) {
+export default function ComingSoon({ label }: { label: string }) {
   return (
-    <main className="coming-soon">
+    <section className="coming-soon-page" aria-labelledby="coming-soon-heading">
       <Image
-        src={imageSrc}
-        alt={imageAlt}
+        src="/images/bali.jpg"
+        alt="Balinese temple beside a lake, surrounded by tropical greenery"
         fill
-        priority
+        preload
         sizes="100vw"
-        className="bali-image"
+        className="coming-soon-image"
       />
-      <div className="image-overlay" aria-hidden="true" />
-      <header className="brand" aria-label="BaliRabies">
-        <div>
-          <span className="brand-name">Bali<span>Rabies</span></span>
-        </div>
-      </header>
-      <section className="message" aria-labelledby="headline">
-        <h1 id="headline" className="coming-title"><span>{title}</span></h1>
-      </section>
-      <AnimalCompanions />
-      <footer>
-        <span>{footer}</span>
-      </footer>
-    </main>
+      <div className="container coming-soon-content">
+        <span className="coming-soon-status"><span aria-hidden="true" /> IN THE MAKING</span>
+        <p className="eyebrow">{label}</p>
+        <h1 id="coming-soon-heading">Good things.<br /><em>Coming soon.</em></h1>
+        <p>We’re getting this part of BaliRabies ready.<br />A little more care for your life on the island.</p>
+        <Button href="/">Back to home</Button>
+      </div>
+    </section>
   );
 }
