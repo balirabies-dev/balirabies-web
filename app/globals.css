@@ -2268,3 +2268,11 @@ progress::-moz-progress-bar {
 @media print {
   #main > .page-intro { padding-top: 0; }
 }
+
+.not-found-page { justify-content: center; padding: 140px 0; }
+.not-found-page::after { background: linear-gradient(180deg, #092a2b94, #092a2bd9); }
+.not-found-content { text-align: center; }
+.not-found-content .not-found-code { margin: 0 0 16px; color: #e5d4b9; font-size: clamp(88px, 12vw, 160px); font-weight: 600; letter-spacing: -0.06em; line-height: 1; }
+.not-found-content h1 { margin-bottom: 20px; }
+.not-found-content > p:not(.not-found-code) { max-width: 480px; margin: 0 auto 24px; }
+.not-found-content .button { margin-top: 0; }

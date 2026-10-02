@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inter } from "next/font/google";
+import { sans } from "../lib/fonts";
 import { notFound } from "next/navigation";
 import { languages, isLocale } from "../lib/i18n/config";
 import { translate, translateTree } from "../lib/i18n/translate";
 import { LocaleProvider } from "../components/locale-provider";
 import Header from "../components/header";
 import NavigationScroll from "../components/navigation-scroll";
+import GoogleAnalytics from "../components/google-analytics";
 import { Brand } from "../components/ui";
 import { site } from "../lib/site";
 import "../globals.css";
-const sans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
 
 const baseMetadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -47,6 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 }
 
 export function generateStaticParams() { return languages.map(({ code }) => ({ lang: code })); }
+export const dynamicParams = false;
 
 export default async function RootLayout({
   children,
@@ -57,6 +54,10 @@ export default async function RootLayout({
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
+  const measurementId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? "G-ZERQ4TC868";
+  const analyticsEnabled = process.env.NODE_ENV === "production"
+    && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production")
+    && /^G-[A-Z0-9]+$/.test(measurementId);
   return translateTree((
     <html lang={lang} className={sans.variable} data-scroll-behavior="smooth">
       <body>
@@ -86,6 +87,7 @@ export default async function RootLayout({
           </div>
         </footer>
       </LocaleProvider>
+      {analyticsEnabled && <GoogleAnalytics measurementId={measurementId} hostname={new URL(site.url).hostname} />}
       </body>
     </html>
   ), lang);

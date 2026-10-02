@@ -187,7 +187,7 @@ export const articles: Record<string, Article> = {
     },
     {
       "title": "6. Cookies and Analytics",
-      "text": "BaliRabies may use cookies and similar technologies to help the website function properly and to understand how visitors interact with the website.\nThese technologies may be used for:\nWebsite functionality \nTraffic measurement \nWebsite performance \nSecurity \nUnderstanding visitor behavior \nImproving user experience \nThe review build does not load Google Analytics. Any analytics service enabled before launch will be documented here.\nThese services may collect information about your use of the website in accordance with their respective privacy policies.\nYou may be able to control or disable cookies through your browser settings."
+      "text": "BaliRabies may use cookies and similar technologies to help the website function properly and to understand how visitors interact with the website.\nThese technologies may be used for:\nWebsite functionality \nTraffic measurement \nWebsite performance \nSecurity \nUnderstanding visitor behavior \nImproving user experience \nOn the production website, we use Google Analytics 4 to measure page views and general website usage. Google Analytics may use cookies and process usage information according to Google’s privacy policy. Analytics is disabled on local development and preview deployments.\nThese services may collect information about your use of the website in accordance with their respective privacy policies.\nYou may be able to control or disable cookies through your browser settings."
     },
     {
       "title": "7. How We Share Information",

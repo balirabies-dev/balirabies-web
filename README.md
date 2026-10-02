@@ -37,6 +37,34 @@ After deployment, submit `https://balirabies.id/sitemap.xml` in Google Search
 Console and measure the deployed homepage with PageSpeed Insights. A successful
 build does not measure real-user Core Web Vitals or guarantee search rankings.
 
+## Missing pages
+
+The 404 page reuses the Bali background with a centered message and home link.
+`app/global-not-found.tsx` handles unmatched URLs through Next.js's experimental
+`globalNotFound` option, which is needed for the language-based root layout.
+The browser selects English or Indonesian from the URL; the global fallback
+initially renders English on the server. Missing pages return HTTP 404 with
+`noindex`. Registered languages remain the only valid root segments.
+
+## Google Analytics
+
+The shared layout loads GA4 with measurement ID `G-ZERQ4TC868` after hydration.
+Set `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` to override it; set it to an empty value to
+disable analytics. It runs only in production builds served over HTTPS on the
+configured canonical hostname (including its `www` variant). Localhost, other
+hostnames, development, and Vercel previews do not load the Google tag. Analytics
+is independent of the search-indexing launch flag.
+
+In the GA4 web stream, enable **Enhanced measurement → Page views → Page changes
+based on browser history events**. The integration uses Google's automatic
+history tracking for Next.js navigation; it does not send additional manual
+`page_view` events. Google Signals and advertising personalization signals are
+disabled. No custom questionnaire or form-answer events are sent.
+
+After deployment, use GA4 Realtime or DebugView to confirm that the initial page
+and subsequent navigation are recorded once. The privacy copy is updated in both
+languages to describe production analytics.
+
 ## Images and fonts
 
 Inter is self-hosted through `next/font`. The homepage hero is a resized 2880px
