@@ -16,7 +16,7 @@ npm run start
 
 ## Search and deployment
 
-The canonical domain defaults to `https://balirabies.id`. Set
+The canonical domain defaults to `https://www.balirabies.com`. Set
 `NEXT_PUBLIC_SITE_URL` to override it. Use the same production origin for every
 language; English and Indonesian pages expose canonical URLs and reciprocal
 `hreflang` links, including an English `x-default`.
@@ -33,7 +33,7 @@ Contact, coming-soon, draft membership/terms, and the exposure-summary tool rema
 structured breadcrumbs share the same canonical origin. Structured data describes
 the website and visible breadcrumbs without claiming a verified clinic or team.
 
-After deployment, submit `https://balirabies.id/sitemap.xml` in Google Search
+After deployment, submit `https://www.balirabies.com/sitemap.xml` in Google Search
 Console and measure the deployed homepage with PageSpeed Insights. A successful
 build does not measure real-user Core Web Vitals or guarantee search rankings.
 
@@ -51,7 +51,7 @@ initially renders English on the server. Missing pages return HTTP 404 with
 The shared layout loads GA4 with measurement ID `G-ZERQ4TC868` after hydration.
 Set `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` to override it; set it to an empty value to
 disable analytics. It runs only in production builds served over HTTPS on the
-configured canonical hostname (including its `www` variant). Localhost, other
+configured canonical hostname and `balirabies.com` (including their `www` variants). Localhost, other
 hostnames, development, and Vercel previews do not load the Google tag. Analytics
 is independent of the search-indexing launch flag.
 

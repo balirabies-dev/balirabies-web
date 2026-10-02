@@ -1,4 +1,4 @@
-const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://balirabies.id").origin;
+const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.balirabies.com").origin;
 const launchReady = process.env.NEXT_PUBLIC_LAUNCH_READY === "true";
 const publicDomain = !["localhost", "127.0.0.1", "[::1]"].includes(new URL(siteUrl).hostname);
 export const site = {

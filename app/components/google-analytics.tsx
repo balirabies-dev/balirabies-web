@@ -11,9 +11,10 @@ export default function GoogleAnalytics({ measurementId, hostname }: {
 }) {
   const enabled = useSyncExternalStore(subscribe, () => {
     const productionHost = hostname.replace(/^www\./, "");
+    const currentHost = window.location.hostname.replace(/^www\./, "");
     return window.location.protocol === "https:"
-      && window.location.hostname.replace(/^www\./, "") === productionHost
-      && !["localhost", "127.0.0.1", "[::1]"].includes(productionHost);
+      && [productionHost, "balirabies.com"].includes(currentHost)
+      && !["localhost", "127.0.0.1", "[::1]"].includes(currentHost);
   }, serverSnapshot);
 
   if (!enabled) return null;
