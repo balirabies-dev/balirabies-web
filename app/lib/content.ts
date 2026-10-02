@@ -1,3 +1,5 @@
+import { biteSteps } from "./home";
+
 export type Article = {
   title: string;
   eyebrow: string;
@@ -7,7 +9,7 @@ export type Article = {
 };
 export const articles: Record<string, Article> = {
   "rabies-guide": {
-    title: "A little knowledge. A clearer next step.",
+    title: "Learn about rabies in Bali.",
     eyebrow: "The rabies guide",
     intro:
       "Practical information for living in and exploring Bali. Start here, and speak with a healthcare professional about your own situation.",
@@ -28,7 +30,7 @@ export const articles: Record<string, Article> = {
     ],
   },
   "rabies-guide/before-exposure": {
-    title: "Before the adventure, make a care plan.",
+    title: "Before you travel: reduce your rabies risk.",
     eyebrow: "Prevention",
     intro:
       "A little preparation helps you make informed decisions about travel and everyday life in Bali.",
@@ -54,24 +56,11 @@ export const articles: Record<string, Article> = {
     intro:
       "Seek prompt medical assessment. This website and its questionnaire cannot tell you whether treatment is needed.",
     medical: true,
-    sections: [
-      {
-        title: "1. Wash the wound",
-        text: "Wash and flush the area with soap and running water for at least 15 minutes.",
-      },
-      {
-        title: "2. Seek medical attention",
-        text: "Do not wait for symptoms or an online response. Visit an available healthcare facility for assessment. A clinician will consider wound care, vaccination, and whether immunoglobulin is indicated.",
-      },
-      {
-        title: "3. Follow your care plan",
-        text: "Bring previous vaccination records and follow the schedule provided by your clinician. If a dose is delayed, contact your healthcare provider for advice.",
-      },
-    ],
+    sections: biteSteps.map((step, index) => ({ title: `${index + 1}. ${step.title}`, text: step.text })),
   },
   treatment: {
-    title: "The right care starts with a conversation.",
-    eyebrow: "Our care",
+    title: "Rabies treatment options.",
+    eyebrow: "Treatment",
     intro:
       "Explore consultation, vaccination, immunoglobulin, and care at home. A clinician determines the treatment appropriate for you.",
     sections: [
@@ -148,10 +137,10 @@ export const articles: Record<string, Article> = {
     ],
   },
   about: {
-    title: "For the life you’re building in Bali.",
+    title: "Clear rabies information for travelers.",
     eyebrow: "About BaliRabies",
     intro:
-      "A public care resource designed around international residents and travelers: understandable information, clear choices, and a practical route to care.",
+      "BaliRabies is an educational resource for travelers in Bali, covering rabies prevention, animal exposure, vaccination, and treatment.",
     sections: [
       {
         title: "Clarity at every step",
@@ -168,25 +157,72 @@ export const articles: Record<string, Article> = {
     ],
   },
   privacy: {
-    title: "Your information deserves care, too.",
-    eyebrow: "Privacy · development preview",
-    intro:
-      "This describes the current preview. A complete privacy notice and verified data-controller contact must be approved before live requests are enabled.",
-    sections: [
-      {
-        title: "Exposure guide",
-        text: "Answers stay in the current page interaction. They are not added to URLs, stored in browser storage, or sent to an analytics service. Leaving or refreshing the page clears them. Printing creates a copy under your control.",
-      },
-      {
-        title: "Appointment form",
-        text: "The preview validates entries locally and does not transmit or save them. Do not enter sensitive medical information. No appointment request is delivered.",
-      },
-      {
-        title: "External services",
-        text: "Following an external source or a configured WhatsApp link takes you to another provider and its privacy terms. WhatsApp links contain only a general greeting. The hosting provider may process standard access logs.",
-      },
-    ],
-  },
+  "title": "Privacy Policy",
+  "eyebrow": "Privacy Policy",
+  "intro": "At BaliRabies, we respect your privacy and are committed to protecting the information you provide when using our website. This policy explains what information we may collect, how we use it, and the choices you have.",
+  "sections": [
+    {
+      "title": "Review status",
+      "text": "This policy is a client-supplied draft for review. The current appointment form validates locally and does not send or store requests. Operator identity, contact details, retention periods, and any live integrations must be confirmed before launch. Last updated: September 2026."
+    },
+    {
+      "title": "1. About BaliRabies",
+      "text": "BaliRabies is an educational website providing information about rabies prevention, animal exposures, vaccination, post-exposure prophylaxis (PEP), rabies immunoglobulin (RIG), and related healthcare services for travelers in Bali.\nFor the purposes of this Privacy Policy, “BaliRabies,” “we,” “us,” or “our” refers to the operator of this website.\nWebsite: BaliRabies\nContact: Contact email awaiting confirmation\nWhatsApp: WhatsApp number awaiting confirmation"
+    },
+    {
+      "title": "2. Information We Collect",
+      "text": "We may collect information that you voluntarily provide when you contact us or request assistance.\nThis may include:\nName \nEmail address \nWhatsApp or telephone number \nCountry of residence \nTravel-related information \nInformation about an animal bite, scratch, or other potential rabies exposure \nPrevious rabies vaccination information \nOther information you choose to provide when requesting assistance \nWebsite Usage Information\nWe may also automatically collect limited technical information when you visit our website, such as:\nIP address \nBrowser type \nDevice type \nPages visited \nApproximate geographic location \nReferring website \nDate and time of visits \nGeneral website usage and performance information \nThis information may be collected through cookies, analytics tools, or similar technologies."
+    },
+    {
+      "title": "3. Health Information",
+      "text": "If you contact us regarding a potential rabies exposure, you may choose to provide information about your bite, scratch, vaccination history, or other health-related circumstances.\nPlease do not provide more personal or medical information than is necessary for your inquiry.\nInformation you provide will be used only for the purpose of responding to your inquiry and assisting with your request.\nBaliRabies does not use information submitted through the website to make an automated medical diagnosis or treatment decision."
+    },
+    {
+      "title": "4. How We Use Your Information",
+      "text": "We may use information you provide to:\nRespond to your questions and inquiries \nProvide information about rabies vaccination and treatment \nAssist with inquiries regarding PEP or RIG \nCommunicate with you through WhatsApp, telephone, or email \nArrange or coordinate requested healthcare services, where applicable \nImprove our website and educational content \nUnderstand how visitors use our website \nMaintain website security and prevent misuse \nComply with applicable legal and regulatory requirements \nWe will not use your information for unrelated purposes without an appropriate legal basis or your consent where required."
+    },
+    {
+      "title": "5. WhatsApp and Third-Party Communication Services",
+      "text": "If you choose to contact BaliRabies through WhatsApp, your communication will also be subject to WhatsApp's own privacy policies and terms.\nWe do not control how WhatsApp processes information on its platform.\nPlease avoid sending unnecessary sensitive medical information through WhatsApp."
+    },
+    {
+      "title": "6. Cookies and Analytics",
+      "text": "BaliRabies may use cookies and similar technologies to help the website function properly and to understand how visitors interact with the website.\nThese technologies may be used for:\nWebsite functionality \nTraffic measurement \nWebsite performance \nSecurity \nUnderstanding visitor behavior \nImproving user experience \nThe review build does not load Google Analytics. Any analytics service enabled before launch will be documented here.\nThese services may collect information about your use of the website in accordance with their respective privacy policies.\nYou may be able to control or disable cookies through your browser settings."
+    },
+    {
+      "title": "7. How We Share Information",
+      "text": "We do not sell or rent your personal information.\nWe may share information when reasonably necessary with:\nHealthcare providers involved in fulfilling a service you have requested \nService providers that help us operate the website or communicate with users \nWebsite analytics and technology providers \nProfessional advisers where necessary \nGovernment authorities or other parties when required by applicable law \nWhere appropriate, we aim to limit information shared to what is reasonably necessary for the relevant purpose."
+    },
+    {
+      "title": "8. Data Retention",
+      "text": "We retain personal information only for as long as reasonably necessary for the purposes described in this Privacy Policy, including responding to inquiries, providing requested services, maintaining appropriate records, resolving disputes, and complying with legal obligations.\nThe length of time information is retained may depend on the nature of the information and the purpose for which it was collected."
+    },
+    {
+      "title": "9. Data Security",
+      "text": "We take reasonable technical and organizational measures to protect personal information against unauthorized access, disclosure, alteration, loss, or misuse.\nHowever, no website, online communication service, or electronic transmission can be guaranteed to be completely secure.\nYou should therefore avoid submitting unnecessary sensitive information through online forms or messaging services."
+    },
+    {
+      "title": "10. International Data Transfers",
+      "text": "Because BaliRabies may use third-party technology, communication, hosting, analytics, or other service providers, your information may be processed or stored in countries outside Indonesia.\nWhere applicable, we will take reasonable steps to ensure that personal information is handled in accordance with applicable privacy and data protection requirements."
+    },
+    {
+      "title": "11. Your Privacy Rights",
+      "text": "Depending on applicable law, you may have rights regarding your personal information, including the right to:\nRequest access to personal information we hold about you \nRequest correction of inaccurate information \nRequest deletion of information where legally permitted \nWithdraw consent where processing is based on consent \nObject to or request restriction of certain processing \nRequest information about how your personal information is processed \nTo exercise a privacy-related right, please contact us using the details below.\nWe may need to verify your identity before processing certain requests."
+    },
+    {
+      "title": "12. Children's Privacy",
+      "text": "BaliRabies is primarily intended for travelers and adults seeking information about rabies prevention and treatment.\nWe do not knowingly collect personal information from children through the website for purposes unrelated to providing requested healthcare assistance.\nIf you believe that a child has provided personal information to us without appropriate consent, please contact us so that we can review the situation."
+    },
+    {
+      "title": "13. Third-Party Websites",
+      "text": "Our website may contain links to external websites, including healthcare providers, government agencies, medical organizations, maps, booking services, or social media platforms.\nWe are not responsible for the privacy practices or content of third-party websites.\nWe recommend reviewing the privacy policy of any external website before providing personal information."
+    },
+    {
+      "title": "14. Changes to This Privacy Policy",
+      "text": "We may update this Privacy Policy from time to time to reflect changes to our services, technology, or applicable legal requirements.\nThe updated version will be published on this page together with the “Last Updated” date."
+    }
+  ]
+},
   terms: {
     title: "Clear expectations, from the beginning.",
     eyebrow: "Terms · draft for approval",
@@ -208,23 +244,13 @@ export const articles: Record<string, Article> = {
     ],
   },
   "medical-disclaimer": {
-    title: "Information supports care. It does not replace it.",
-    eyebrow: "Medical disclaimer",
-    intro:
-      "BaliRabies provides general educational information, not a diagnosis, risk classification, or prescription.",
+    title: "Medical Disclaimer",
+    eyebrow: "Medical Disclaimer",
+    intro: "BaliRabies provides general educational information about rabies prevention, exposure, vaccination, and treatment. The information on this website is not a substitute for an examination, diagnosis, or individualized medical advice from a qualified healthcare professional.",
     sections: [
-      {
-        title: "After a possible exposure",
-        text: "Seek prompt professional assessment. Do not wait for symptoms, a form response, or completion of the exposure guide.",
-      },
-      {
-        title: "Individual treatment",
-        text: "A qualified healthcare professional must determine your treatment and schedule. The questionnaire summarizes what you enter and does not determine whether you are safe.",
-      },
-      {
-        title: "Editorial status",
-        text: "Content is based on linked WHO resources. No clinician review or accreditation is claimed. Clinical and operational approval is required before launch.",
-      },
+      { title: "Prompt assessment matters", text: "Rabies exposure should be treated as a medical concern requiring prompt assessment. Treatment decisions, including whether rabies vaccine or rabies immunoglobulin is indicated, depend on the type of exposure, the animal involved, the circumstances of the exposure, and the individual’s previous vaccination history." },
+      { title: "Information and updates", text: "Information on this website is based on available public-health and clinical guidance and may be updated as recommendations change." },
+      { title: "After a possible exposure", text: "If you have been bitten, scratched, or otherwise exposed to a potentially rabid animal, seek medical attention promptly." },
     ],
   },
 };
@@ -272,6 +298,11 @@ export const specialPages: Record<
   string,
   { title: string; intro: string; eyebrow: string }
 > = {
+  "rabies-in-bali": {
+    title: "Rabies in Bali: data and regional overview.",
+    eyebrow: "Rabies in Bali",
+    intro: "A dated snapshot of reported animal-bite exposures, animal cases, vaccine administrations, and deaths — with regional counts and historical trends.",
+  },
   membership: {
     title: "A little more peace of mind for life in Bali.",
     eyebrow: "Membership",
@@ -282,18 +313,18 @@ export const specialPages: Record<
     title: "Let’s take the next step together.",
     eyebrow: "Contact & appointment requests",
     intro:
-      "Ask about consultation, treatment, or membership. A request is the beginning of a conversation, not a confirmed booking.",
+      "Ask about rabies vaccination, immunoglobulin, or post-exposure treatment. A request is the beginning of a conversation, not a confirmed booking.",
   },
   faq: {
     title: "A few things you might be wondering.",
     eyebrow: "Frequently asked questions",
-    intro: "Clear answers about requesting care, membership, and follow-up.",
+    intro: "Answers about animal bites, rabies vaccination, post-exposure treatment, and travel in Bali.",
   },
   sources: {
     title: "Good information starts with trusted sources.",
     eyebrow: "Sources & editorial notes",
     intro:
-      "Our educational pages draw on the World Health Organization resources below. Sources accessed on 20 September 2026; this is not a clinical review date.",
+      "Explore the WHO, CDC, and Bali government references supporting this website. The Bali snapshot is dated 4 September 2026.",
   },
   "exposure-guide": {
     title: "Organize the details. Prepare for care.",

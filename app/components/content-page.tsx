@@ -1,7 +1,9 @@
+import { isLocale, localizedHref } from "../lib/i18n/config";
+import { translate, translateTree } from "../lib/i18n/translate";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, specialPages } from "../lib/content";
-import { membershipPlans, sources, site, doctorHref } from "../lib/site";
+import { membershipPlans, sources, doctorHref } from "../lib/site";
 import {
   Button,
   FAQs,
@@ -10,18 +12,37 @@ import {
   Icon,
 } from "../components/ui";
 import ExposureGuide from "../components/exposure-guide";
-import RequestForm from "../components/request-form";
+import ComingSoon from "./coming-soon";
+import RabiesData from "./rabies-data";
+import StructuredData from "./structured-data";
+import { absoluteUrl } from "../lib/seo";
 export default async function ContentPage({
   params,
 }: {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ slug: string[]; lang: string }>;
 }) {
-  const path = (await params).slug.join("/");
+  const { slug, lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const path = slug.join("/");
   const article = articles[path];
   const data = article || specialPages[path];
+  const showCareSidebar = article?.medical || path.startsWith("treatment");
   if (!data) notFound();
-  return (
+  if (path === "contact") return <ComingSoon label="Contact Us" locale={lang} />;
+  const breadcrumbs = [
+    { name: translate("Home", lang), path: "/" },
+    ...(path.includes("/") ? [{ name: translate(path.startsWith("rabies-guide") ? "Rabies Guide" : "Treatment", lang), path: `/${path.split("/")[0]}` }] : []),
+    { name: translate(data.eyebrow, lang), path: `/${path}` },
+  ];
+  return translateTree((
     <>
+      <StructuredData data={{
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((crumb, index) => ({
+          "@type": "ListItem", position: index + 1, name: crumb.name,
+          item: absoluteUrl(localizedHref(crumb.path, lang)),
+        })),
+      }} />
       <div className="container page-intro">
         <div className="breadcrumbs">
           <Link href="/">Home</Link>
@@ -42,7 +63,7 @@ export default async function ContentPage({
       </div>
       <div className="container page-body">
         {article && (
-          <div className="article-layout">
+          <div className={showCareSidebar ? "article-layout" : "article-layout legal-document"}>
             <article>
               {article.sections.map((s) => (
                 <section key={s.title}>
@@ -58,8 +79,7 @@ export default async function ContentPage({
                   <p>
                     Based on <a href={sources[0].url}>WHO rabies guidance</a>,{" "}
                     <a href={sources[1].url}>vaccination guidance</a>, and{" "}
-                    <a href={sources[2].url}>animal-bite guidance</a>. Sources
-                    accessed 20 September 2026. No clinician review is claimed.
+                    <a href={sources[2].url}>animal-bite guidance</a>. These are general educational references; no individual assessment or clinician review is claimed.
                   </p>
                   <Link href="/medical-disclaimer">
                     Read the medical disclaimer →
@@ -67,7 +87,7 @@ export default async function ContentPage({
                 </div>
               )}
             </article>
-            <aside className="article-aside">
+            {showCareSidebar && <aside className="article-aside">
               <Icon name="chat" size={30} />
               <h3>You don’t have to work it out alone.</h3>
               <p>
@@ -78,7 +98,7 @@ export default async function ContentPage({
               <Link href="/exposure-guide" className="text-link">
                 Prepare an exposure summary →
               </Link>
-            </aside>
+            </aside>}
           </div>
         )}
         {path === "rabies-guide" && (
@@ -193,36 +213,7 @@ export default async function ContentPage({
             <FAQs />
           </>
         )}
-        {path === "contact" && (
-          <div className="contact-layout">
-            <RequestForm />
-            <aside className="article-aside">
-              <h3>Contact options</h3>
-              {site.whatsapp ? (
-                <Button href={doctorHref}>Open WhatsApp</Button>
-              ) : (
-                <p>
-                  WhatsApp contact will be available once the clinic number is
-                  verified.
-                </p>
-              )}
-              {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
-              <p>
-                Location, operating hours, and service coverage are awaiting
-                confirmation.
-              </p>
-              <hr />
-              <h3>Recent bite or scratch?</h3>
-              <p>
-                Seek prompt medical care. Do not wait for this form or an online
-                response.
-              </p>
-              <Link className="text-link" href="/rabies-guide/after-exposure">
-                Read immediate next steps →
-              </Link>
-            </aside>
-          </div>
-        )}
+        {path === "rabies-in-bali" && <RabiesData locale={lang} />}
         {path === "exposure-guide" && <ExposureGuide />}
         {path === "faq" && <FAQs />}
         {path === "sources" && (
@@ -232,7 +223,7 @@ export default async function ContentPage({
                 <h2>
                   <a href={s.url}>{s.title} ↗</a>
                 </h2>
-                <p>World Health Organization · educational reference</p>
+                <p>{s.publisher} · reference</p>
               </section>
             ))}
             <section>
@@ -247,7 +238,7 @@ export default async function ContentPage({
           </article>
         )}
       </div>
-      {path !== "contact" && <ContactBanner />}
+      <ContactBanner />
     </>
-  );
+  ), lang);
 }

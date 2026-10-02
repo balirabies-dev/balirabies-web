@@ -1,8 +1,11 @@
 import { ImageResponse } from "next/og";
-export const alt = "BaliRabies — Make Bali home. Keep care close.";
+import { isLocale } from "../lib/i18n/config";
+export const alt = "BaliRabies — Explore Bali with Confidence";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export default function Image() {
+export default async function Image({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const indonesian = isLocale(lang) && lang === "id";
   return new ImageResponse(
     <div
       style={{
@@ -26,12 +29,12 @@ export default function Image() {
       >
         BaliRabies
       </div>
-      <div style={{ fontSize: 76, display: "flex" }}>Make Bali home.</div>
-      <div style={{ fontSize: 76, color: "#006b68", display: "flex" }}>
-        Keep care close.
+      <div style={{ fontSize: 56, display: "flex" }}>{indonesian ? "Jelajahi Bali" : "Explore Bali"}</div>
+      <div style={{ fontSize: 56, color: "#006b68", display: "flex" }}>
+        {indonesian ? "dengan Percaya Diri" : "with Confidence"}
       </div>
       <div style={{ fontSize: 24, marginTop: 40, display: "flex" }}>
-        Personal care. Clear next steps.
+        {indonesian ? "Informasi rabies untuk wisatawan." : "Rabies information for travelers."}
       </div>
     </div>,
     size,

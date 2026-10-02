@@ -1,10 +1,13 @@
 "use client";
+import { useLocale } from "./locale-provider";
+import { translateTree } from "../lib/i18n/translate";
 import { useState } from "react";
 import Link from "next/link";
 export default function RequestForm() {
+  const locale = useLocale();
   const [method, setMethod] = useState("Email");
   const [checked, setChecked] = useState(false);
-  return (
+  return translateTree((
     <form
       className="request-form"
       onChange={() => setChecked(false)}
@@ -39,9 +42,9 @@ export default function RequestForm() {
             onChange={(e) => setMethod(e.target.value)}
             name="method"
           >
-            <option>Email</option>
-            <option>Phone</option>
-            <option>WhatsApp</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+            <option value="WhatsApp">WhatsApp</option>
           </select>
         </label>
         <label>
@@ -69,7 +72,6 @@ export default function RequestForm() {
               "Immunoglobulin (RIG / SAR)",
               "Home or villa visit",
               "Follow-up care",
-              "Membership inquiry",
               "Not sure",
             ].map((s) => (
               <option key={s}>{s}</option>
@@ -81,7 +83,9 @@ export default function RequestForm() {
           <input
             type="date"
             name="date"
-            min={new Date().toLocaleDateString("en-CA")}
+            onFocus={(event) => {
+              event.currentTarget.min = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Jakarta" });
+            }}
           />
         </label>
         <label>
@@ -127,5 +131,5 @@ export default function RequestForm() {
         </div>
       )}
     </form>
-  );
+  ), locale);
 }

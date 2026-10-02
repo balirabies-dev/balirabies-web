@@ -1,9 +1,12 @@
 "use client";
+import { useLocale } from "./locale-provider";
+import { translate, translateTree } from "../lib/i18n/translate";
 import { useRef, useState } from "react";
 import { questions, hasAnswer } from "../lib/questionnaire";
 import { doctorHref } from "../lib/site";
 import { Button } from "./ui";
 export default function ExposureGuide() {
+  const locale = useLocale();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(5).fill(""));
   const [error, setError] = useState("");
@@ -13,7 +16,7 @@ export default function ExposureGuide() {
     setError("");
     requestAnimationFrame(() => heading.current?.focus());
   }
-  return (
+  return translateTree((
     <section className="questionnaire">
       <div className="progress-label">
         <span>Step {step + 1} of 6</span>
@@ -95,7 +98,7 @@ export default function ExposureGuide() {
               <div key={q.label}>
                 <dt>{q.label}</dt>
                 <dd>{answers[i]}</dd>
-                <button onClick={() => move(i)} aria-label={`Edit ${q.label}`}>
+                <button onClick={() => move(i)} aria-label={`${translate("Edit", locale)} ${translate(q.label, locale)}`}>
                   Edit
                 </button>
               </div>
@@ -123,5 +126,5 @@ export default function ExposureGuide() {
         or leaving clears them. General information only.
       </p>
     </section>
-  );
+  ), locale);
 }

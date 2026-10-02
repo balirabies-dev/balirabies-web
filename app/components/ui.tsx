@@ -1,3 +1,6 @@
+"use client";
+import { useLocale } from "./locale-provider";
+import { translateTree } from "../lib/i18n/translate";
 import Link from "next/link";
 import { doctorHref, faqs, services } from "../lib/site";
 export function Icon({
@@ -7,6 +10,7 @@ export function Icon({
   name?: string;
   size?: number;
 }) {
+  const locale = useLocale();
   const paths: Record<string, React.ReactNode> = {
     shield: (
       <>
@@ -42,7 +46,7 @@ export function Icon({
       </>
     ),
   };
-  return (
+  return translateTree((
     <svg
       width={size}
       height={size}
@@ -56,7 +60,7 @@ export function Icon({
     >
       {paths[name] || paths.shield}
     </svg>
-  );
+  ), locale);
 }
 export function Button({
   href,
@@ -67,29 +71,29 @@ export function Button({
   children: React.ReactNode;
   secondary?: boolean;
 }) {
-  return (
+  const locale = useLocale();
+  return translateTree((
     <Link className={`button ${secondary ? "secondary" : ""}`} href={href}>
       {children}
       <Icon name="arrow" size={18} />
     </Link>
-  );
+  ), locale);
 }
 export function Brand() {
-  return (
+  const locale = useLocale();
+  return translateTree((
     <Link href="/" className="brand" aria-label="BaliRabies home">
-      <span className="brand-mark">
-        <Icon name="plus" size={28} />
-      </span>
       <span>
         Bali<span className="brand-light">Rabies</span>
-        <small>CARE CLOSE TO HOME</small>
+        <small>TRAVEL SAFE. STAY INFORMED.</small>
       </span>
     </Link>
-  );
+  ), locale);
 }
 
 export function ServiceCards() {
-  return (
+  const locale = useLocale();
+  return translateTree((
     <div className="service-grid">
       {services.map((s, i) => (
         <Link className="service-card" href={s.href} key={s.title}>
@@ -107,10 +111,11 @@ export function ServiceCards() {
         </Link>
       ))}
     </div>
-  );
+  ), locale);
 }
 export function FAQs({ limit = faqs.length }: { limit?: number }) {
-  return (
+  const locale = useLocale();
+  return translateTree((
     <div className="faqs">
       {faqs.slice(0, limit).map(([q, a]) => (
         <details key={q}>
@@ -122,17 +127,18 @@ export function FAQs({ limit = faqs.length }: { limit?: number }) {
         </details>
       ))}
     </div>
-  );
+  ), locale);
 }
 export function ContactBanner() {
-  return (
+  const locale = useLocale();
+  return translateTree((
     <section className="contact-banner container">
       <div>
         <span className="eyebrow">HERE FOR YOUR NEXT STEP</span>
-        <h2>Let’s talk about your care.</h2>
-        <p>Questions, plans, or something unexpected. Start a conversation.</p>
+        <h2>Questions about rabies care in Bali?</h2>
+        <p>Ask about vaccination, immunoglobulin, and your next steps.</p>
       </div>
-      <Button href={doctorHref}>Talk to a Doctor</Button>
+      <Button href={doctorHref}>Contact Us</Button>
     </section>
-  );
+  ), locale);
 }

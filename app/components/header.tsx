@@ -1,16 +1,21 @@
 "use client";
+import LanguageSelector from "./language-selector";
+import { unlocalizedPath } from "../lib/i18n/config";
+import { useLocale } from "./locale-provider";
+import { translateTree } from "../lib/i18n/translate";
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Brand, Icon } from "./ui";
 import { doctorHref } from "../lib/site";
 export default function Header() {
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
-  const path = usePathname();
+  const path = unlocalizedPath(usePathname());
   const menuButton = useRef<HTMLButtonElement>(null);
-  return (
+  return translateTree((
     <header
-      className="site-header glass-header"
+      className="container site-header glass-header"
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           setOpen(false);
@@ -18,18 +23,8 @@ export default function Header() {
         }
       }}
     >
-      <div className="container header-inner">
+      <div className="header-inner">
         <Brand />
-        <button
-          ref={menuButton}
-          className="menu-toggle"
-          aria-expanded={open}
-          aria-controls="main-nav"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? "Close" : "Menu"}{" "}
-          <span aria-hidden="true">{open ? "×" : "☰"}</span>
-        </button>
         <nav
           id="main-nav"
           className={open ? "open" : ""}
@@ -37,9 +32,10 @@ export default function Header() {
         >
           {[
             ["/", "Home"],
-            ["/rabies-guide", "Rabies Guide"],
+            ["/rabies-guide", "Rabies"],
             ["/treatment", "Treatment"],
-            ["/membership", "Membership"],
+            ["/rabies-guide/after-exposure", "After Exposure"],
+            ["/faq", "FAQs"],
             ["/about", "About"],
           ].map(([url, label]) => (
             <Link
@@ -47,7 +43,7 @@ export default function Header() {
               href={url}
               onClick={() => setOpen(false)}
               aria-current={
-                path === url || (url !== "/" && path.startsWith(url))
+                path === url || (url === "/treatment" && path.startsWith("/treatment/"))
                   ? "page"
                   : undefined
               }
@@ -61,10 +57,24 @@ export default function Header() {
             onClick={() => setOpen(false)}
           >
             <Icon name="chat" size={18} />
-            Talk to a Doctor
+            Contact Us
           </Link>
         </nav>
+        <div className="header-controls">
+          <LanguageSelector />
+        <button
+          ref={menuButton}
+          className="menu-toggle"
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={open}
+          aria-controls="main-nav"
+          onClick={() => setOpen(!open)}
+        >
+          <span className="menu-toggle-label">{open ? "Close" : "Menu"}</span>{" "}
+          <span aria-hidden="true">{open ? "×" : "☰"}</span>
+        </button>
+        </div>
       </div>
     </header>
-  );
+  ), locale);
 }

@@ -1,11 +1,14 @@
+import { translateTree } from "../lib/i18n/translate";
+import type { Locale } from "../lib/i18n/config";
 import Image from "next/image";
+import baliImage from "../assets/bali-hero.webp";
 import { Button } from "./ui";
 
-export default function ComingSoon({ label }: { label: string }) {
-  return (
+export default function ComingSoon({ label, locale = "en" }: { label: string; locale?: Locale }) {
+  return translateTree((
     <section className="coming-soon-page" aria-labelledby="coming-soon-heading">
       <Image
-        src="/images/bali.jpg"
+        src={baliImage}
         alt="Balinese temple beside a lake, surrounded by tropical greenery"
         fill
         preload
@@ -20,5 +23,5 @@ export default function ComingSoon({ label }: { label: string }) {
         <Button href="/">Back to home</Button>
       </div>
     </section>
-  );
+  ), locale);
 }
